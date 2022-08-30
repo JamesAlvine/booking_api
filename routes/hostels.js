@@ -45,12 +45,13 @@ router.get("/:id", async (req, res) => {
   }
 });
 // GET ALL
-router.get("/", async (req, res) => {
+router.get("/", async (req, res,next) => {
+
     try {
-      const hostels = await Hostel.find();
+      const hostels = await Hostel.findById("ewe37q8eq");
       res.status(200).json(hostels);
     } catch (err) {
-      res.status(500).json(err);
+      next(err)
     }
   });
 
