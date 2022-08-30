@@ -1,58 +1,18 @@
 import expres from "express";
+import { createHostel, deletHostel, getHostel, getHostels, updateHostel } from "../controllers/hostel.js";
 import Hostel from "../model/Hostel.js";
 
 const router = expres.Router();
 
 //CREATE
-router.post("/", async (req, res) => {
-  const newHostel = new Hostel(req.body);
-  try {
-    const savedHostel = await newHostel.save();
-    res.status(200).json(savedHostel);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+router.post("/",createHostel);
 // UPDATE
-router.put("/:id", async (req, res) => {
-  try {
-    const updateHostel = await Hostel.findByIdAndUpdate(
-      req.params.id,
-      { $set: req.body },
-      { new: true }
-    );
-    res.status(200).json(updateHostel);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+router.put("/:id", updateHostel);
 // DELET
-router.delete("/:id", async (req, res) => {
-  try {
-    await Hostel.findByIdAndDelete(req.params.id);
-    res.status(200).json("Hostel successfully deleted.");
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+router.delete("/:id",deletHostel);
 // GET
-router.get("/:id", async (req, res) => {
-  try {
-    const hostel = await Hostel.findById(req.params.id);
-    res.status(200).json(hostel);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+router.get("/:id",getHostel);
 // GET ALL
-router.get("/", async (req, res,next) => {
-
-    try {
-      const hostels = await Hostel.findById("ewe37q8eq");
-      res.status(200).json(hostels);
-    } catch (err) {
-      next(err)
-    }
-  });
+router.get("/", getHostels);
 
 export default router;
