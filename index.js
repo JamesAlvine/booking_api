@@ -28,6 +28,8 @@ mongoose.connection.on("connected",()=>{
 })
 
 // middlewares
+app.use(express.json())
+
 app.use("/api/v1/auth",authRoute);
 app.use("/api/v1/users",usersRoute);
 app.use("/api/v1/hostels",hostelsRoute);
