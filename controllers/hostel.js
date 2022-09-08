@@ -37,7 +37,11 @@ export const deletHostel = async (req, res, next) => {
 // get
 export const getHostel = async (req, res, next) => {
   try {
-    const hostel = await Hostel.findById(req.params.id);
+    const hostel = await Hostel.findById(
+      req.params.id,
+      { $set: req.body },
+      { new: true }
+    );
     res.status(200).json(hostel);
   } catch (err) {
     next(err);
