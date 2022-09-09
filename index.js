@@ -5,6 +5,7 @@ import authRoute from "./routes/auth.js";
 import usersRoute from "./routes/users.js";
 import hostelsRoute from "./routes/hostels.js";
 import roomsRoute from "./routes/rooms.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 dotenv.config();
@@ -26,6 +27,7 @@ mongoose.connection.on("connected", () => {
 });
 
 // middlewares
+app.use(cookieParser());
 app.use(express.json());
 
 app.use("/api/v1/auth", authRoute);
@@ -35,8 +37,8 @@ app.use("/api/v1/rooms", roomsRoute);
 
 // error handling middleware
 app.use((err, req, res, next) => {
-  const errorStatus = err.status || 500
-  const errorMessage = err.message || "server error"
+  const errorStatus = err.status || 500;
+  const errorMessage = err.message || "server error";
   return res.status(errorStatus).json({
     success: false,
     status: errorMessage,
