@@ -8,7 +8,6 @@ import {
 } from "../controllers/hostel.js";
 const router = expres.Router();
 
-// ?????
 //CREATE
 router.post("/", createHostel);
 // UPDATE
