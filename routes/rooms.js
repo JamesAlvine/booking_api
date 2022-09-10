@@ -2,6 +2,7 @@ import expres from "express"
 import {
     createRoom,
     deleteRoom,
+    updateRoomAvailability,
     getRoom,
     getRooms,
     updateRoom,
@@ -10,13 +11,13 @@ import {
 const router= expres.Router();
 
 //CREATE
-router.post("/:hotelid", verifyAdmin, createRoom);
+router.post("/:hostelid", verifyAdmin, createRoom);
 
 //UPDATE
 router.put("/availability/:id", updateRoomAvailability);
 router.put("/:id", verifyAdmin, updateRoom);
 //DELETE
-router.delete("/:id/:hotelid", verifyAdmin, deleteRoom);
+router.delete("/:id/:hostelid", verifyAdmin, deleteRoom);
 //GET
 
 router.get("/:id", getRoom);
