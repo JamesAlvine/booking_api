@@ -1,27 +1,27 @@
 import expres from "express";
 import { deletUser, getUser, getUsers, updateUser } from "../controllers/user.js";
-import { verfyToken, veryAdmin, veryUser } from "../utils/verifyToken.js";
+import { verifyToken, verifyAdmin, verifyUser } from "../utils/verifyToken.js";
 
 const router = expres.Router();
 
-router.get("/checkauthentication",verfyToken,(req,res,next)=>{
-    res.send("Hello user, you are logged in ")
-})
-router.get("/checkuser/:id",veryUser,(req,res,next)=>{
-    res.send("Hello user, you are logged in and can delet your account ")
-})
+// router.get("/checkauthentication",verifyToken,(req,res,next)=>{
+//     res.send("Hello user, you are logged in ")
+// })
+// router.get("/checkuser/:id",verifyUser,(req,res,next)=>{
+//     res.send("Hello user, you are logged in and can delet your account ")
+// })
 
-router.get("/checkadmin/:id",veryAdmin,(req,res,next)=>{
-    res.send("Hello admin, you are logged in and can delet all accounts ")
-})
+// router.get("/checkadmin/:id",verifyAdmin,(req,res,next)=>{
+//     res.send("Hello admin, you are logged in and can delet all accounts ")
+// })
 
 // UPDATE
-router.put("/:id", updateUser);
+router.put("/:id",verifyUser, updateUser);
 // DELET
-router.delete("/:id", deletUser);
+router.delete("/:id",verifyUser, deletUser);
 // GET
-router.get("/:id", getUser);
+router.get("/:id",verifyUser, getUser);
 // GET ALL
-router.get("/", getUsers);
+router.get("/",verifyAdmin, getUsers);
 
 export default router;

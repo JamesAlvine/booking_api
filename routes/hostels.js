@@ -6,14 +6,15 @@ import {
   getHostels,
   updateHostel,
 } from "../controllers/hostel.js";
+import { verifyAdmin } from "../utils/verifyToken.js";
 const router = expres.Router();
 
 //CREATE
-router.post("/", createHostel);
+router.post("/", verifyAdmin, createHostel);
 // UPDATE
-router.put("/:id", updateHostel);
+router.put("/:id", verifyAdmin, updateHostel);
 // DELET
-router.delete("/:id", deletHostel);
+router.delete("/:id", verifyAdmin, deletHostel);
 // GET
 router.get("/:id", getHostel);
 // GET ALL
