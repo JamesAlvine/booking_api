@@ -38,15 +38,16 @@ app.use("/api/v1/rooms", roomsRoute);
 // error handling middleware
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
-  const errorMessage = err.message || "server error";
+  const errorMessage = err.message || "Something went wrong!";
   return res.status(errorStatus).json({
     success: false,
-    status: errorMessage,
+    status: errorStatus,
+    message: errorMessage,
     stack: err.stack,
   });
 });
 
 app.listen(8800, () => {
   connect();
-  console.log("connected to backend");
+  console.log("Connected to backend.");
 });
